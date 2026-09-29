@@ -4,9 +4,8 @@ public abstract class EntidadeEspiritual implements Interagivel{
     private int nivelForca;
     public abstract void agirNoPlanoInvisivel();
 
-    public EntidadeEspiritual(String nome, int nivelForca) {
-        this.nome = nome;
-        this.nivelForca = nivelForca;
+    public EntidadeEspiritual() {
+
     }
 
     public String getNome() {

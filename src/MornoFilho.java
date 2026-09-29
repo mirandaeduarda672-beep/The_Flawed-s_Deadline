@@ -1,8 +1,8 @@
 public class MornoFilho extends Filhos{
-    public MornoFilho(String nome, int idade, int sanidade, float eloComOPai, int diaDaSemana, boolean estarVivo, int culpaAcumulada) {
-        super(nome, idade, sanidade, eloComOPai, diaDaSemana, estarVivo, culpaAcumulada);
-    }
+    public MornoFilho() {
+        super(); // <-- Esta linha executa tudo o que defini no construtor de Filhos
 
+    }
     @Override
     public void reagirATentacao() {
 

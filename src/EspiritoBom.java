@@ -1,8 +1,8 @@
 public class EspiritoBom extends EntidadeEspiritual implements Interagivel {
     private String mensagemAlento;
 
-    public EspiritoBom(String nome, int nivelForca) {
-        super(nome, nivelForca);
+    public EspiritoBom() {
+
     }
 
     private void pausar(int milissegundos) {
@@ -27,19 +27,26 @@ public class EspiritoBom extends EntidadeEspiritual implements Interagivel {
         // Seleciona a mensagem divina com base na maior necessidade do Filho
         if (alvo.getCulpaAcumulada() >= 40) {
             IO.println("        -[EspiritoBom]: 'Ainda que os teus pecados sejam como a escarlata, eles se tornarão brancos como a neve. Não aceites a condenação do inimigo!'");
-            alvo.setCulpaAcumulada(Math.max(0, alvo.getCulpaAcumulada() - 20)); // Reduz a culpa
+            alvo.setCulpaAcumulada(Math.max(0, alvo.getCulpaAcumulada() - 20));
+            alvo.statusFilho();
+            pausar(1000);
         }
         else if (alvo.getEloComOPai() <= 0.4f) {
             IO.println("        -[EspiritoBom]: 'Não te deixarei, nem te desampararei. O teu Pai não se esqueceu de ti neste vale.'");
-            alvo.setEloComOPai(Math.min(1.0f, alvo.getEloComOPai() + 0.20f)); // Restaura o elo
+            alvo.setEloComOPai(Math.min(1.0f, alvo.getEloComOPai() + 0.20f));
+            alvo.statusFilho();
+            pausar(1000);
+            // Restaura o elo
         }
         else {
             IO.println("        -[EspiritoBom]: 'Sê forte e corajoso. A minha graça te basta, pois o meu poder aperfeiçoa-se na tua fraqueza!'");
-            alvo.setSanidade(Math.min(100, alvo.getSanidade() + 15)); // Restaura a sanidade
+            alvo.setSanidade(Math.min(100, alvo.getSanidade() + 15));
+            alvo.statusFilho();
+            pausar(1000);// Restaura a sanidade
         }
 
-        pausar(1000);
         IO.println("        [Graça Divina]: Sentiste uma paz inexplicável a renovar as tuas forças.");
+        pausar(1000);
     }
     @Override
     public boolean podeInteragir(Filhos alvo) {

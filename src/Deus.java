@@ -5,10 +5,10 @@ public class Deus extends EntidadeEspiritual {
     // Composição: Deus mantém e gere a existência da lista de Filhos (1..*)
     private List<Filhos> listaFilhos;
 
-    public Deus(String nome, int nivelForca) {
-        super(nome, nivelForca);
+    public Deus() {
         this.listaFilhos = new ArrayList<>();
     }
+
 
     private void pausar(int milissegundos) {
         try {
@@ -19,15 +19,37 @@ public class Deus extends EntidadeEspiritual {
     }
 
     // Adiciona um Filho à composição divina
-    public void adicionarFilho(Filhos filho) {
-        if (filho != null) {
-            this.listaFilhos.add(filho);
+    public Filhos gerarFilho(String tipo, String nome, int idade) {
+        Filhos novoFilho;
+
+        switch (tipo.toLowerCase()) {
+            case "bom":
+                novoFilho = new BomFilho();
+
+                break;
+            case "mau":
+                novoFilho = new MauFilho();
+
+                break;
+            case "morno":
+                novoFilho = new MornoFilho();
+
+            default:
+                novoFilho = new MornoFilho();
+                break;
         }
+        novoFilho.setNome(nome);
+        novoFilho.setIdade(idade);
+        // Adiciona à lista gerenciada  por Deus
+        this.listaFilhos.add(novoFilho);
+
+        return novoFilho;
     }
 
-    @Override
+
     public void agirNoPlanoInvisivel() {
         IO.println("        -[Deus]: Eu sou o Alfa e o Ômega, o Princípio e o Fim.");
+        IO.println("\n");
         pausar(1000);
     }
 
@@ -35,6 +57,7 @@ public class Deus extends EntidadeEspiritual {
     public void chamarFilho(Filhos alvo) {
         if (alvo != null && alvo.isEstarVivo()) {
             IO.println("        -[Deus]: " + alvo.getNome() + ", dá-me o teu coração e observa os Meus caminhos.");
+            IO.println("\n");
             pausar(1000);
         }
     }
@@ -44,11 +67,14 @@ public class Deus extends EntidadeEspiritual {
         if (alvo != null && alvo.isEstarVivo()) {
             alvo.setCulpaAcumulada(0);
             float eloAtual = alvo.getEloComOPai();
-            alvo.setEloComOPai(Math.min(1.0f, eloAtual + 0.30f)); // Restaura forte o elo
+            alvo.setEloComOPai(Math.min(1.0f, eloAtual + 0.30f));
+            alvo.statusFilho();
 
             IO.println("        -[Deus]: VAI EM PAZ. Os teus pecados foram perdoados.");
+            IO.println("\n");
             pausar(1000);
             IO.println("        [Intervenção Divina]: Toda a culpa foi removida e o teu Elo com o Pai subiu significativamente!");
+            IO.println("\n");
             pausar(1000);
         }
     }
@@ -56,18 +82,22 @@ public class Deus extends EntidadeEspiritual {
     // Aplica o julgamento com base na negligência do Filho
     public void aplicarConsequencia(Filhos alvo) {
         if (alvo != null && alvo.isEstarVivo()) {
+
             if (alvo.getCulpaAcumulada() >= 70 || alvo.getEloComOPai() <= 0.1f) {
                 IO.println("        -[Deus]: Deus não se deixa escarnecer; pois aquilo que o homem semear, isso também ceifará.");
+                IO.println("\n");
                 pausar(1000);
 
                 // Consequência severa: perda de sanidade por disciplina espiritual
-                int novaSanidade = Math.max(0, alvo.getSanidade() - 25);
-                alvo.setSanidade(novaSanidade);
+                alvo.setSanidade(Math.max(0, alvo.getSanidade() - 25));
+                alvo.statusFilho();
 
                 IO.println("        [Disciplina Divina]: A ausência da luz trouxe peso sobre o teu espírito (-25 Sanidade)!");
+                IO.println("\n");
                 pausar(1000);
             } else {
                 IO.println("        -[Deus]: Muito bem, servo bom e fiel. Sobre o pouco foste fiel, sobre muito te colocarei.");
+                IO.println("\n");
                 pausar(1000);
             }
         }
@@ -76,6 +106,7 @@ public class Deus extends EntidadeEspiritual {
     // Método da Composição: Encerra a existência de todos os Filhos geridos
     public void destruirFilhos() {
         IO.println("        -[Deus]: O tempo da provação terminou. As almas retornam ao seu Criador.");
+        IO.println("\n");
         pausar(1000);
 
         for (Filhos filho : listaFilhos) {
@@ -111,3 +142,5 @@ public class Deus extends EntidadeEspiritual {
             }
         }
     }}
+
+

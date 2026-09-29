@@ -1,8 +1,8 @@
 public class BomFilho extends Filhos {
 
 
-    public BomFilho(String nome, int idade, int sanidade, float eloComOPai, int diaDaSemana, boolean estarVivo, int culpaAcumulada) {
-        super(nome, idade, sanidade, eloComOPai, diaDaSemana, estarVivo, culpaAcumulada);
+    public BomFilho() {
+        super();
     }
 
     private void pausar(int milissegundos) {
@@ -19,8 +19,12 @@ public class BomFilho extends Filhos {
         setSanidade(Math.max(0, sanidadeAtual - 5)); // Perde apenas 5 de sanidade
 
         IO.println("        [Reação - Bom Filho]: O meu coração vacila por um instante, mas a minha fé permanece firme.");
+        IO.println("\n");
         pausar(1000);
-        IO.println("        [Status]: Perdeu 5 de Sanidade. Sanidade atual: " + getSanidade());
+        IO.println("\n");
+        IO.println("        [Status]: Perdeu 5 de Sanidade. \n "+statusFilho()
+        );
+        IO.println("\n");
         pausar(1000);
     }
 }
