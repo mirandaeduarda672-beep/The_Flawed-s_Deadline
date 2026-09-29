@@ -20,11 +20,11 @@ public class BomFilho extends Filhos {
 
         IO.println("        [Reação - Bom Filho]: O meu coração vacila por um instante, mas a minha fé permanece firme.");
         IO.println("\n");
-        pausar(1000);
+        pausar(2000);
         IO.println("\n");
         IO.println("        [Status]: Perdeu 5 de Sanidade. \n "+statusFilho()
         );
         IO.println("\n");
-        pausar(1000);
+        pausar(2000);
     }
 }

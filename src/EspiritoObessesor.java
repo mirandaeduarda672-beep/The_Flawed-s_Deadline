@@ -57,7 +57,6 @@ public class EspiritoObessesor extends EntidadeEspiritual implements Interagivel
     public void semearDuvida(Filhos alvo) {
         // Se o elo com o Pai for alto, o obsessor ataca com mais força
         if (alvo.getEloComOPai() > 0.5f) {
-            alvo.statusFilho();
             IO.println("        [Efeito]: A sua sanidade vacilou levemente (-0.10)...");
             alvo.statusFilho();
             IO.println("\n");
