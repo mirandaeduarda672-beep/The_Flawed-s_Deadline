@@ -5,48 +5,38 @@ public class EspiritoBom extends EntidadeEspiritual implements Interagivel {
 
     }
 
-    private void pausar(int milissegundos) {
-        try {
-            Thread.sleep(milissegundos);
-        } catch (InterruptedException e) {
-            System.out.println("A pausa foi interrompida!");
-        }
-    }
-
     @Override
     public void agirNoPlanoInvisivel() {
-        IO.println("        -[EspiritoBom]: Não temas, pois Eu sou contigo; não te assombres, porque Eu sou o teu Deus.");
-        pausar(1000);
-        IO.println("        -[EspiritoBom]: A graça d'Ele se aperfeiçoa nas tuas fraquezas. Levanta-te!");
-        pausar(1000);
+        ArtUtils.imprimirLento(Cores.ESPIRITO_BOM+"        -[EspiritoBom]: Não temas, pois Eu sou contigo; não te assombres, porque Eu sou o teu Deus."+Cores.VOLTARCOR,70);
+        ArtUtils.imprimirLento(Cores.ESPIRITO_BOM+"        -[EspiritoBom]: A graça d'Ele se aperfeiçoa nas tuas fraquezas. Levanta-te!"+Cores.VOLTARCOR,70);
+
     }
     public void entregarMensagemDeDeus(Filhos alvo) {
-        IO.println("        -[EspiritoBom]: Trago-te uma palavra do Alto...");
-        pausar(1000);
+        ArtUtils.imprimirLento(Cores.ESPIRITO_BOM+"        -[EspiritoBom]: Trago-te uma palavra do Alto..."+Cores.VOLTARCOR,70);
+
 
         // Seleciona a mensagem divina com base na maior necessidade do Filho
         if (alvo.getCulpaAcumulada() >= 40) {
-            IO.println("        -[EspiritoBom]: 'Ainda que os teus pecados sejam como a escarlata, eles se tornarão brancos como a neve. Não aceites a condenação do inimigo!'");
+            ArtUtils.imprimirLento(Cores.ESPIRITO_BOM+"        -[EspiritoBom]: 'Ainda que os teus pecados sejam como a escarlata, eles se tornarão brancos como a neve. Não aceites a condenação do inimigo!'"+Cores.VOLTARCOR,70);
             alvo.setCulpaAcumulada(Math.max(0, alvo.getCulpaAcumulada() - 20));
             alvo.statusFilho();
-            pausar(1000);
+
         }
         else if (alvo.getEloComOPai() <= 0.4f) {
-            IO.println("        -[EspiritoBom]: 'Não te deixarei, nem te desampararei. O teu Pai não se esqueceu de ti neste vale.'");
+            ArtUtils.imprimirLento(Cores.ESPIRITO_BOM+"        -[EspiritoBom]: 'Não te deixarei, nem te desampararei. O teu Pai não se esqueceu de ti neste vale.'"+Cores.VOLTARCOR,70);
             alvo.setEloComOPai(Math.min(1.0f, alvo.getEloComOPai() + 0.20f));
             alvo.statusFilho();
-            pausar(1000);
             // Restaura o elo
         }
         else {
-            IO.println("        -[EspiritoBom]: 'Sê forte e corajoso. A minha graça te basta, pois o meu poder aperfeiçoa-se na tua fraqueza!'");
+            ArtUtils.imprimirLento(Cores.ESPIRITO_BOM+"        -[EspiritoBom]: 'Sê forte e corajoso. A minha graça te basta, pois o meu poder aperfeiçoa-se na tua fraqueza!'"+Cores.VOLTARCOR,70);
             alvo.setSanidade(Math.min(100, alvo.getSanidade() + 15));
             alvo.statusFilho();
-            pausar(1000);// Restaura a sanidade
+            // Restaura a sanidade
         }
 
-        IO.println("        [Graça Divina]: Sentiste uma paz inexplicável a renovar as tuas forças.");
-        pausar(1000);
+        ArtUtils.imprimirLento(Cores.DEUS+"        [Graça Divina]: Sentiste uma paz inexplicável a renovar as tuas forças."+Cores.VOLTARCOR,70);
+
     }
     @Override
     public boolean podeInteragir(Filhos alvo) {

@@ -6,10 +6,8 @@ public abstract class Filhos extends Deus {
     private int diaDaSemana=1;
     private boolean estarVivo=true;
     private int culpaAcumulada;
+    private String cor;
 
-
-
-     ///////////////////colocar o metodo pausssaaar
     public Filhos() {
         this.sanidade = 100;        // Começa com sanidade total
         this.eloComOPai = 1.0f;     // Começa com elo máximo (100%)
@@ -17,10 +15,18 @@ public abstract class Filhos extends Deus {
         this.diaDaSemana = 1;       // Inicia no Dia 1
         this.estarVivo = true;      // Começa vivo
     }
-    public String statusFilho(){
-        IO.println("\n");
-        return ("--------------- Status -> Sanidade: " +sanidade + " | Elo com o Pai: " + eloComOPai + "%" + " | Culpa: " + culpaAcumulada);
+    public Filhos(String cor) {
+        this(); // Executa primeiro as inicializações do construtor acima!
+        this.cor = cor;
+    }
 
+    public String statusFilho(){
+        ArtUtils.imprimirLento (Cores.MENU+"--------------- Status -> Sanidade: " +sanidade + " | Elo com o Pai: " + eloComOPai + "%" + " | Culpa: " + culpaAcumulada+Cores.VOLTARCOR,70);
+        return "";}
+
+    public void falar(String mensagem) {
+        String textoFormatado = this.cor + "        [" + getNome() + "]: " + mensagem + Cores.VOLTARCOR;
+        ArtUtils.imprimirLento(textoFormatado, 70);
     }
 
     public String getNome() {
@@ -51,8 +57,10 @@ public abstract class Filhos extends Deus {
         return culpaAcumulada;
     }
 
+    public String getCor() {return cor;}
+
     public void pecar() {
-        IO.println("        [Tentação]: Cedes ao desejo momentâneo, mas o prazer efémero dá lugar a uma fria e pesada culpa no teu peito.");
+        ArtUtils.imprimirLento(Cores.NARRADOR+"        [Tentação]: Cedes ao desejo momentâneo, mas o prazer efémero dá lugar a uma fria e pesada culpa no teu peito."+Cores.VOLTARCOR,70);
 
             // Impacto nos atributos
         this.eloComOPai = Math.max(0.0f, this.eloComOPai - 0.20f); // Reduz a conexão divina
@@ -61,19 +69,17 @@ public abstract class Filhos extends Deus {
         statusFilho();
     }
     public void confessar(Deus deus) {
-        IO.println("        [Confissão]: 'Pai, pequei contra o céu e contra Ti; não sou mais digno de ser chamado Teu filho, mas clamo pela Tua misericórdia...'");
+        falar("        [Confissão]: 'Pai, pequei contra o céu e contra Ti; não sou mais digno de ser chamado Teu filho, mas clamo pela Tua misericórdia...'");
         eloComOPai+=0.5f;
         sanidade+=10;
         statusFilho();
         deus.perdoarCulpa(Filhos.this);
-
-
     }
     //interceder:orar pelos irmaos, abencoa-los
     public void interceder(Deus deus) {
-        IO.println("        [Intercessão]: Clamas não por ti, mas pela proteção e fortalecimento da fé dos teus irmãos na caminhada.");
+        falar("        [Intercessão]: Clamas não por ti, mas pela proteção e fortalecimento da fé dos teus irmãos na caminhada.");
         deus.perdoarCulpa(Filhos.this);
-        IO.println("        [Efeito]: A sua sanidade e o seu elo com o pai subiram levemente ...");
+        falar("        [Efeito]: A sua sanidade e o seu elo com o pai subiram levemente ...");
         eloComOPai+=0.1f;
         sanidade+=30;
         statusFilho();
@@ -82,12 +88,12 @@ public abstract class Filhos extends Deus {
 
     public void orar(Deus deus){
         if (this.sanidade < 30) {
-            IO.println("        [Oração Desesperada]: Em lágrimas e com a voz trêmula, clamas por socorro na tua escuridão...");
+            falar("        [Oração Desesperada]: Em lágrimas e com a voz trêmula, clamas por socorro na tua escuridão...");
 
         } else {
-            IO.println("        [Oração]: Fechas os olhos e sentes a presença renovadora do Altíssimo...");
+            falar("        [Oração]: Fechas os olhos e sentes a presença renovadora do Altíssimo...");
         }
-        IO.println("        [Efeito]: A sua sanidade e o seu elo com o pai subiram levemente ...");
+        ArtUtils.imprimirLento(Cores.NARRADOR+"        [Efeito]: A sua sanidade e o seu elo com o pai subiram levemente ..."+Cores.VOLTARCOR,70);
         eloComOPai+=0.1f;
         sanidade+=30;
         statusFilho();
@@ -122,5 +128,7 @@ public abstract class Filhos extends Deus {
     public void setEloComOPai(float eloComOPai) {
         this.eloComOPai = eloComOPai;
     }
+
+    public void setCor(String cor) { this.cor = cor; }
 
 }

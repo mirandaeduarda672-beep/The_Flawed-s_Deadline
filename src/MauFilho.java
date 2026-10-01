@@ -1,16 +1,9 @@
 public class MauFilho extends Filhos {
 
     public MauFilho() {
-        super();
+        super(Cores.MAU_FILHO);
     }
 
-    private void pausar(int milissegundos) {
-        try {
-            Thread.sleep(milissegundos);
-        } catch (InterruptedException e) {
-            System.out.println("A pausa foi interrompida!");
-        }
-    }
 
     @Override
     public void reagirATentacao() {
@@ -19,9 +12,7 @@ public class MauFilho extends Filhos {
         setEloComOPai(Math.max(0.0f, getEloComOPai() - 0.25f));
         setCulpaAcumulada(getCulpaAcumulada() + 30);
 
-        IO.println("       \n [Reação - Mau Filho]: 'É inútil resistir... A culpa sufoca-me e não sinto mais a luz do Pai!' \n");
-        pausar(2000);
-        IO.println("        [Status]: Sofreste um golpe espiritual severo (-30 Sanidade). \nSanidade atual: " + getSanidade());
-        pausar(2000);
+        falar("        [Reação - Mau Filho]: 'É inútil resistir... A culpa sufoca-me e não sinto mais a luz do Pai!' \n");
+        ArtUtils.imprimirLento(Cores.MENU+"        [Status]: Sofreste um golpe espiritual severo (-30 Sanidade). \nSanidade atual: " + getSanidade()+Cores.VOLTARCOR,70);
     }
 }

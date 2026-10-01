@@ -1,14 +1,6 @@
 import java.util.Scanner;
 
 public class Main {
-    //Método criado para dar um tempo entre as frases
-    private static void pausar(int milissegundos) {
-        try {
-            Thread.sleep(milissegundos);
-        } catch (InterruptedException e) {
-            System.out.println("A pausa foi interrompida!");
-        }
-    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -34,23 +26,21 @@ public class Main {
         Filhos f5 = deus.gerarFilho("morno", "Manuelle", 21);
         Filhos f6 = deus.gerarFilho("morno", "Miranda", 21);
 
-        IO.println("\n");
-        IO.println("==========================================");
-        IO.println("   BEM-VINDOS À PROVAÇÃO DOS 7 DIAS!   ");
-        IO.println("==========================================");
-        pausar(1000);
+
+        ArtUtils.imprimirLento(Cores.TITULO+"   BEM-VINDOS À PROVAÇÃO DOS 7 DIAS!"+Cores.VOLTARCOR,70);
+
 
         // 4. Seleção do Filho para jogar nesta partida
-        IO.println("\n");
-        IO.println("Escolha qual dos filhos você deseja guiar na provação:");
-        IO.println("\n");
+        ArtUtils.imprimirLento(Cores.NARRADOR3+"Escolha qual dos filhos você deseja guiar na provação:"+Cores.VOLTARCOR,70);
         for (int i = 0; i < deus.getListaFilhos().size(); i++) {
             Filhos f = deus.getListaFilhos().get(i);
-            IO.println((i + 1) + " - " + f.getNome() + " (" + f.getClass().getSimpleName() + ", " + f.getIdade() + " anos)");
+            System.out.println(Cores.MENU);
+            ArtUtils.imprimirLento((i + 1) + " - " + f.getNome() + " (" + f.getClass().getSimpleName() + ", " + f.getIdade() + " anos)",70);
+            System.out.println(Cores.VOLTARCOR);
         }
-        System.out.print("Opção: ");
-        //O menos 1 seria para o codigo ficar mais fiel ao Arraylist, que vai do 0 ao 5
+        ArtUtils.imprimirLento(Cores.PROMPT+"Opção: "+Cores.VOLTARCOR,70);
 
+        //O menos 1 seria para o codigo ficar mais fiel ao Arraylist, que vai do 0 ao 5
         int escolha = scanner.nextInt() - 1;
 
         // Validação da escolha do jogador
@@ -59,49 +49,48 @@ public class Main {
         }
 
         Filhos jogador = deus.getListaFilhos().get(escolha);
-        IO.println("\nVocê assumiu o destino de " + jogador.getNome() + "!\n");
-        pausar(1500);
+        ArtUtils.imprimirLento(Cores.NARRADOR+"Você assumiu o destino de " + jogador.getNome() + "!"+Cores.VOLTARCOR,70);
 
         // 5. Loop dos 7 Dias de Provação
         for (int dia = 1; dia <= 7; dia++) {
             if (!jogador.isEstarVivo() || jogador.getSanidade() <= 0) {
-                IO.println("\n[FIM DE JOGO]: A mente de " + jogador.getNome() + " não suportou a pressão espiritual.");
+                ArtUtils.imprimirLento(Cores.MENU+"[FIM DE JOGO]: A mente de " + jogador.getNome() + " não suportou a pressão espiritual."+Cores.VOLTARCOR,70);
                 break;
             }
 
             jogador.setDiaDaSemana(dia);
-            IO.println("\n==========================================");
-            IO.println("                DIA " + dia + " DE 7");
-            IO.println("==========================================");
+            IO.println(Cores.MENU+"==========================================");
+            ArtUtils.imprimirLento("                DIA " + dia + " DE 7",70);
+            IO.println("=========================================="+Cores.VOLTARCOR);
             jogador.statusFilho();
-            pausar(3000);
 
             // A) Ataque do Obsessor
-            IO.println("\n--- [Ataque Espiritual] ---");
+            ArtUtils.imprimirLento(Cores.ESPIRITO_OBSESSOR+"--- [Ataque Espiritual] ---"+Cores.VOLTARCOR,70);
             obessesor.interagir(jogador);
-            pausar(5000);
-            IO.println("        [Efeito]: A sua sanidade vacilou levemente (10)...");
+            ArtUtils.imprimirLento(Cores.NARRADOR+"        [Efeito]: A sua sanidade vacilou levemente (10)..."+Cores.VOLTARCOR,70);
             jogador.setSanidade(Math.max(0, jogador.getSanidade() - 10));
             jogador.statusFilho();
-            pausar(5000);
 
 
             if (jogador.getSanidade() <= 0) {
-                IO.println("\n[FIM DE JOGO]: " + jogador.getNome() + " sucumbiu ao desespero.");
+                ArtUtils.imprimirLento(Cores.MENU+"[FIM DE JOGO]: " + jogador.getNome() + " sucumbiu ao desespero."+Cores.VOLTARCOR,70);
                 jogador.setEstarVivo(false);
                 break;
             }
 
             // B) Menu de Ação do Jogador
-            IO.println("\n--- [Sua Decisão] ---");
-            IO.println("1 - Orar (Aumenta o Elo com o Pai)");
-            IO.println("2 - Confessar Pecados (Deus perdoa a Culpa)");
-            IO.println("3 - Clamar por Socorro (Recebe a visita do Anjo)");
-            IO.println("4 - Pecar / Dar ouvidos ao Obsessor (Alívio imediato, mas acumula Culpa)");
-            System.out.print("Escolha: ");
-            int acao = scanner.nextInt();
+            ArtUtils.imprimirLento(Cores.NARRADOR+"--- [Sua Decisão] ---"+Cores.VOLTARCOR,20);
+            ArtUtils.imprimirLento(Cores.MENU+"1 - Orar (Aumenta o Elo com o Pai)",20);
+            ArtUtils.imprimirLento("2 - Confessar Pecados (Deus perdoa a Culpa)",20);
+            ArtUtils.imprimirLento("3 - Clamar por Socorro (Recebe a visita do Anjo)",20);
+            ArtUtils.imprimirLento("4 - Pecar / Dar ouvidos ao Obsessor (Alívio imediato, mas acumula Culpa)",20);
+            ArtUtils.imprimirLento("Escolha: "+Cores.VOLTARCOR,70);
 
-            IO.println("");
+            System.out.print(Cores.DEUS);
+            int acao = scanner.nextInt();
+            System.out.print(Cores.VOLTARCOR);
+            System.out.println();
+
             switch (acao) {
                 case 1:
                     jogador.orar(deus);
@@ -120,24 +109,21 @@ public class Main {
                     IO.println("Ficaste imóvel diante da tentação...");
                     break;
             }
-            pausar(4000);
+
         }
 
         // 6. Encerramento / Juízo Final
-        IO.println("\n");
-        IO.println("\n==========================================");
-        IO.println("              JUÍZO FINAL");
-        IO.println("==========================================");
+
+        ArtUtils.imprimirLento(Cores.TITULO+"              JUÍZO FINAL"+Cores.VOLTARCOR,70);
 
         if (jogador.isEstarVivo() && jogador.getSanidade() > 0) {
-            IO.println(jogador.getNome() + " atravessou os 7 dias de provação!");
+           ArtUtils.imprimirLento(Cores.DEUS+jogador.getNome() + "             Você atravessou os 7 dias de provação!"+Cores.VOLTARCOR,70);
             deus.aplicarConsequencia(jogador);
-        }pausar(4000);
+        }
+        else {
 
-        IO.println("\n==========================================");
-        IO.println("              GAME OVER");
-        IO.println("==========================================");
+        ArtUtils.imprimirLento(Cores.MAU_FILHO+"              GAME OVER"+Cores.VOLTARCOR,70);
 
         scanner.close();
     }
-}
+}}
